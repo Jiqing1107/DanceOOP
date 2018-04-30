@@ -27,12 +27,13 @@ classdef RunningAverager < handle
                if isKey(obj.mapObj, record.mac{i,1})
                    index = obj.mapObj(record.mac{i,1});
                    rsst = obj.rss{index};
-                   rsst(end+1,:) = [record.time(i,1), record.rss(i,1)];
+                   rsst(end+1,:) = [str2num(record.time{i,1}), str2num(record.rss{i,1})];
                    % may need to sort the incoming record
                    obj.rss{index} = rsst;
                    obj.status(index) = true;
                end
            end
+           fprintf('last read data time %s\n', record.date{end, 1})
        end
        
        function ready = isupdated(obj)

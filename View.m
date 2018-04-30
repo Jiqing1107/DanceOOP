@@ -89,7 +89,7 @@ classdef View < handle
             % add listener to sensorUpdated event
             obj.modelObj.addlistener('sensorUpdated', @obj.callback_sensorUpdate);
             % add keyboard esc even listener
-            set(obj.gui_h.figure1,'WindowKeyPressFcn',@controller.callback_keypress);
+            % set(obj.gui_h.figure1,'WindowKeyPressFcn',@controller.callback_keypress);
             
         end
         function callback_sensorUpdate(obj, src, event)
@@ -97,6 +97,13 @@ classdef View < handle
             fprintf('time %5.2f: %2.1f:%2.1f:%2.1f:%2.1f\n', endTime, data(1), data(2), data(3),data(4));
             [HorF, sizing] = obj.modelObj.algorithm.predict(data);
             obj.update_fullscreen(HorF, sizing);
+            
+            % check if music done
+            if ~isplaying(obj.music)
+                obj.stopVisualize();
+                obj.modelObj.stopEngine();
+                set(obj.gui_h.doneBtn,'String', 'Start Dance');
+            end
         end
         function startVisualize(obj)
             fullscreen(obj.updateImg, 1);
@@ -105,13 +112,14 @@ classdef View < handle
             controller = obj.controlObj;
             funcH = @controller.callback_keypress;
             set(hframe, 'KeyPressedCallback', funcH);
-            disp(hframe);
-%             s = get(0, 'ScreenSize');
-%             controller = obj.controlObj;
-%             funcH = @controller.callback_keypress;
-%             obj.hfigure = figure('Position', [0 0 s(3) s(4)],'WindowKeyPressFcn',funcH);
-% %             set(obj.hfigure,'WindowKeyPressFcn',@obj.controlObj.callback_keypress);
-%             imshow(obj.updateImg);
+            
+            % for window figure, instead of full screen
+            % s = get(0, 'ScreenSize');
+            % controller = obj.controlObj;
+            % funcH = @controller.callback_keypress;
+            % obj.hfigure = figure('Position', [0 0 s(3) s(4)],'WindowKeyPressFcn',funcH);
+            % %set(obj.hfigure,'WindowKeyPressFcn',@obj.controlObj.callback_keypress);
+            % imshow(obj.updateImg);
             
             
             play(obj.music);
@@ -120,7 +128,7 @@ classdef View < handle
         end
         function stopVisualize(obj)
             closescreen();
-            %close(obj.hfigure);
+            % close(obj.hfigure);
             stop(obj.music);
         end
         function update_fullscreen(obj, HorF, sizing)
@@ -130,7 +138,7 @@ classdef View < handle
                 indSet = zeros(1,2);
                 [obj.updateImg, indSet] = rssTrigger(HorF, indSet, handmask, feetmask, obj.updateImg, obj.targetImg);  % 1 = hand, 2=feet, 3 = both
                 fullscreen(obj.updateImg, 1);
-%                 imshow(obj.updateImg);
+                % imshow(obj.updateImg);
                 obj.count = obj.count + 1;
                 if(mod(obj.count,50)==0)            
                     imgID = randi(size(obj.recommendedImg,1));

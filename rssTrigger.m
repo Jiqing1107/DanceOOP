@@ -1,8 +1,10 @@
 function [toVisualize, indSet]= rssTrigger(handOrFeet, indSet, handInd, feetInd, noiseImg, targetimg)
     height = size(handInd,1);
     width = size(handInd,2);
-    row = randi(size(targetimg,1)-size(handInd,1));
-    col = randi(size(targetimg,2)-size(handInd,2));
+    rowlimit = size(targetimg,1)-size(handInd,1);
+    row = randi(rowlimit);
+    collimit = size(targetimg,2)-size(handInd,2);
+    col = randi(collimit);
     while(ismember(row, indSet(1,1)) & ismember(col, indSet(1,2)))
         row = randi(size(targetimg,1)-size(handInd,1));
         col = randi(size(targetimg,2)-size(handInd,2));

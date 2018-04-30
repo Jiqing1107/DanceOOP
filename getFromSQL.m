@@ -10,7 +10,7 @@ function data = getFromSQL(currentID,code)
     if(currentID == '0')
         sql = strcat('SELECT id, beaconRSSI, beaconMac, beaconDetectedTime, reg_date FROM dancerbeacon_',code);
     else
-        sql = strcat('SELECT id, beaconRSSI, beaconMac, beaconDetectedTime, reg_date FROM dancerbeacon_', code, ' where id >= ', ...
+        sql = strcat('SELECT id, beaconRSSI, beaconMac, beaconDetectedTime, reg_date FROM dancerbeacon_', code, ' where id > ', ...
             currentID);
     end
 

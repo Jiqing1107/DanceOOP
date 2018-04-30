@@ -82,12 +82,13 @@ classdef Controller < handle
             end
         end
         function callback_keypress(obj, src, event)
-%             if strcmp(event.Key, 'escape')
+            % if strcmp(event.Key, 'escape')
+            if event.getKeyCode()==27
                 disp('escape pressed.');
                 obj.viewObj.stopVisualize();
                 obj.modelObj.stopEngine();
                 set(obj.viewObj.gui_h.doneBtn,'String', 'Start Dance');
-%             end
+             end
         end
     end
     
