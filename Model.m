@@ -14,7 +14,7 @@ classdef Model < handle
     methods
         function obj = Model()
             obj.code = 'draft';
-            obj.timerObj = timer('StartDelay', 1, 'Period', 0.1, ...
+            obj.timerObj = timer('StartDelay', 1, 'Period', 0.5, ...
                 'ExecutionMode', 'fixedRate');
             obj.timerObj.TimerFcn = @obj.callback_timer;
             obj.runningAverager = RunningAverager(500);

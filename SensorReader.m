@@ -19,7 +19,7 @@ classdef SensorReader < handle
             % data = obj.simulator.getFromSQL(obj.cursor, obj.code);
             if size(data,2)==5
                 obj.cursor = num2str(data{end,1});
-                disp(data);
+                % disp(data);
                 record = cell2table(data, 'VariableNames',{'id' 'rss' 'mac' 'time' 'date'});
             end
         end

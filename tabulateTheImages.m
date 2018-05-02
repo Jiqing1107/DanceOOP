@@ -1,7 +1,7 @@
 function rImg = tabulateTheImages(dancer, music, imagesFig, checkboxes, screenSize)
     % based on the selected music to determine the danceGenre
     % and then use the dancer profile to locate the recommended images
-    rImg = getRecommendedImages('danceGenre1', screenSize);
+    rImg = getRecommendedImages('danceGenre3', screenSize);
     
     Img1 = 5;
     Img2 = [4,6];

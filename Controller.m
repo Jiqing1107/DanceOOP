@@ -66,6 +66,7 @@ classdef Controller < handle
         end
         function callback_playBtn(obj, src, event)
             play(obj.viewObj.music);
+            clearTheData(obj.modelObj.code);
         end
         function callback_stopBtn(obj, src, event)
             stop(obj.viewObj.music);

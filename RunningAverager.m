@@ -25,6 +25,7 @@ classdef RunningAverager < handle
        function accept(obj, record)
            for i=1:height(record)
                if isKey(obj.mapObj, record.mac{i,1})
+                   disp(record(i,:))
                    index = obj.mapObj(record.mac{i,1});
                    rsst = obj.rss{index};
                    rsst(end+1,:) = [str2num(record.time{i,1}), str2num(record.rss{i,1})];
@@ -59,7 +60,12 @@ classdef RunningAverager < handle
                for i=1:length(obj.rss)
                    rsst = obj.rss{i};
                    rsst = rsst(max(1,end-100):end, :);
-                   data(1, i) = mean(rsst(rsst(:,1)>startTime,2));
+                   rsst_within_iterval = rsst(rsst(:,1)>startTime,:);
+                   if isempty(rsst_within_iterval)
+                        data(1, i) = rsst(end, 2);
+                   else
+                        data(1, i) = mean(rsst_within_iterval(:,2));
+                   end
                end
                obj.status(:) = false;
            end

@@ -13,6 +13,6 @@ function [handInd, feetInd] = getHandFeet(hand,feet,sizing)
     
     hand = imresize(hand, [expSize expSize]);
     feet = imresize(feet, [expSize expSize]);
-    handInd = hand~=0;
-    feetInd = feet~=255;
+    handInd = hand<=125;
+    feetInd = feet<=125;
 end
